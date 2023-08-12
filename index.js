@@ -1,10 +1,40 @@
 const express = require('express');
+const { MongoClient } = require('mongodb');
+const app = express();
 const cors = require('cors');
 
-const app = express();
+// Enable CORS AND BASE ROUTE
+app.use(cors())
+app.use(express.json())
 
-// Enable CORS for all routes
-app.use(cors());
+
+// Database Connection Code Start 
+
+const mongoURI = 'mongodb+srv://tarbiyahshoaib:fhQnrf3EbJHkSFLK@cluster0.rzdo1wc.mongodb.net/'; // Change this to your MongoDB connection URI
+const client = new MongoClient(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
+
+
+async function run() {
+  try {
+      await client.connect();
+      const sample = client.db('mokhter').collection('blog');
+      console.log('Database Connect Hoise')
+      // DATABASE CONNECTION END
+
+    //  api route ------------------
+    app.get('/title',  async (req, res) => {
+      const users = await sample.find().toArray();
+      res.send(users);
+  });
+      
+  }
+  finally {
+
+  }
+
+}
+run().catch(console.dir);
+// gjyg ----------------
 
 
 
