@@ -17,7 +17,13 @@ const client = new MongoClient(mongoURI, { useNewUrlParser: true, useUnifiedTopo
 async function run() {
   try {
       await client.connect();
-      const sample = client.db('mokhter').collection('blog');
+      const program = client.db('mokhter').collection('program');
+      const consultancy = client.db('mokhter').collection('consultancy');
+      const event = client.db('mokhter').collection('event');
+      const lecture = client.db('mokhter').collection('lecture');
+      const blog = client.db('mokhter').collection('blog');
+      const contact = client.db('mokhter').collection('contact');
+
       console.log('Database Connect Hoise')
       // DATABASE CONNECTION END
 
@@ -28,14 +34,16 @@ async function run() {
   });
       
 
-  // LOAD Review  ON MY Review PAGE 
-  app.get('/test',  async (req, res) => {
+
+
+  // Program api route  .......................
+  app.get('/program',  async (req, res) => {
     const defultEmail = "sohag@gmail.com";
     const decodedEmail = "sohag@gmail.com";
     // const decodedEmail = req.query.customerEmail;
     if (defultEmail === decodedEmail) {
-        const users = await sample.find().toArray();
-        res.send(users);
+        const programList = await program.find().toArray();
+        res.send(programList);
     }
     else {
         return res.status(403).send({ message: 'forbidden access' });
@@ -43,10 +51,69 @@ async function run() {
 });
 
 
+// Consultancy  api route ...................
+app.get('/consultancy',  async (req, res) => {
+  const defultEmail = "sohag@gmail.com";
+  const decodedEmail = "sohag@gmail.com";
+  // const decodedEmail = req.query.customerEmail;
+  if (defultEmail === decodedEmail) {
+      const consultancyList = await consultancy.find().toArray();
+      res.send(consultancyList);
   }
-  finally {
+  else {
+      return res.status(403).send({ message: 'forbidden access' });
+  }
+});
+
+
+
+// Event  api route  ..............................
+  app.get('/event',  async (req, res) => {
+    const eventList = await event.find().toArray();
+    res.send(eventList);
+  });
+
+
+
+
+// Lecture  api route .................................
+  app.get('/lecture',  async (req, res) => {
+    const lectureList = await lecture.find().toArray();
+    res.send(lectureList);
+  });
+
+
+
+// Blog  api route  ...................................
+  app.get('/blog',  async (req, res) => {
+    const blogList = await blog.find().toArray();
+    res.send(blogList);
+  });
+
+
+// Contact   api route  ..............................
+  app.get('/contact',  async (req, res) => {
+    const defultEmail = "sohag@gmail.com";
+    const decodedEmail = "sohag@gmail.com";
+    // const decodedEmail = req.query.customerEmail;
+    if (defultEmail === decodedEmail) {
+        const contactList = await contact.find().toArray();
+        res.send(contactList);
+    }
+    else {
+        return res.status(403).send({ message: 'forbidden access' });
+    }
+  });
+
 
   }
+  catch (error) {
+    console.error('Database not Connected and Error fetching data: ', error);
+   
+  }
+  // finally {
+
+  // }
 
 }
 run().catch(console.dir);
