@@ -27,6 +27,22 @@ async function run() {
       res.send(users);
   });
       
+
+  // LOAD Review  ON MY Review PAGE 
+  app.get('/test',  async (req, res) => {
+    const defultEmail = "sohag@gmail.com";
+    const decodedEmail = "sohag@gmail.com";
+    // const decodedEmail = req.query.customerEmail;
+    if (defultEmail === decodedEmail) {
+        const users = await sample.find().toArray();
+        res.send(users);
+    }
+    else {
+        return res.status(403).send({ message: 'forbidden access' });
+    }
+});
+
+
   }
   finally {
 
@@ -34,7 +50,7 @@ async function run() {
 
 }
 run().catch(console.dir);
-// gjyg ----------------
+//  
 
 
 
