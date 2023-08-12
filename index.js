@@ -40,7 +40,8 @@ async function run() {
   app.get('/program',  async (req, res) => {
     const defultEmail = "sohag@gmail.com";
     const decodedEmail = "sohag@gmail.com";
-    // const decodedEmail = req.query.customerEmail;
+    const decoded = req.query;
+    console.log(decoded);
     if (defultEmail === decodedEmail) {
         const programList = await program.find().toArray();
         res.send(programList);
