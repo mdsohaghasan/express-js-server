@@ -47,14 +47,12 @@ async function run() {
 
   // Program api route  .......................
   app.get('/program',  async (req, res) => {
-    const defultEmail = "sohag@gmail.com";
+    const defultEmail = "sohag@gmail.con";
     const decodedEmail = req.headers.authorization;
-    // const decodedEmail = "sohag@gmail.com";
     console.log(decodedEmail);
     if (defultEmail === decodedEmail) {
         const programList = await program.find().toArray();
         res.send(programList);
-       
     }
     else {
         return res.status(403).send({ message: 'forbidden access' });
@@ -65,8 +63,8 @@ async function run() {
 // Consultancy  api route ...................
 app.get('/consultancy',  async (req, res) => {
   const defultEmail = "sohag@gmail.com";
-  const decodedEmail = "sohag@gmail.com";
-  // const decodedEmail = req.query.customerEmail;
+  const decodedEmail = req.headers.authorization;
+  console.log(decodedEmail);
   if (defultEmail === decodedEmail) {
       const consultancyList = await consultancy.find().toArray();
       res.send(consultancyList);
@@ -105,8 +103,8 @@ app.get('/consultancy',  async (req, res) => {
 // Contact   api route  ..............................
   app.get('/contact',  async (req, res) => {
     const defultEmail = "sohag@gmail.com";
-    const decodedEmail = "sohag@gmail.com";
-    // const decodedEmail = req.query.customerEmail;
+    const decodedEmail = req.headers.authorization;
+    console.log(decodedEmail);
     if (defultEmail === decodedEmail) {
         const contactList = await contact.find().toArray();
         res.send(contactList);
