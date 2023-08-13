@@ -34,13 +34,22 @@ async function run() {
   });
       
 
+  // api routes /////////////////////////
+  // Program api route  
+  // Consultancy  api route 
+  // Event  api route
+  // Lecture  api route
+  // Blog  api route
+  // Contact   api route
+
+
 
 
   // Program api route  .......................
   app.get('/program',  async (req, res) => {
     const defultEmail = "sohag@gmail.com";
     const decodedEmail = "sohag@gmail.com";
-    const decoded = req.query;
+    const decoded = req.headers.authorization;
     console.log(decoded);
     if (defultEmail === decodedEmail) {
         const programList = await program.find().toArray();
