@@ -48,12 +48,13 @@ async function run() {
   // Program api route  .......................
   app.get('/program',  async (req, res) => {
     const defultEmail = "sohag@gmail.com";
-    const decodedEmail = "sohag@gmail.com";
-    const decoded = req.headers.authorization;
-    console.log(decoded);
+    const decodedEmail = req.headers.authorization;
+    // const decodedEmail = "sohag@gmail.com";
+    console.log(decodedEmail);
     if (defultEmail === decodedEmail) {
         const programList = await program.find().toArray();
         res.send(programList);
+       
     }
     else {
         return res.status(403).send({ message: 'forbidden access' });
