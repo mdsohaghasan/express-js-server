@@ -227,30 +227,6 @@ async function run() {
       }
     });
 
-
-    // update blog
-    app.put("/blog/:id", async (req, res) => {
-      const id = req.params.id;
-      const data = req.body;
-      console.log("from update api", data);
-      const filter = { _id: new ObjectId(id) };
-      const options = { upsert: true };
-
-      const updateDoc = {
-        $set: {
-          title: data.title,
-          author: data.author,
-          date: data.date,
-          category: data.category,
-          url: data.url,
-          des: data.des,
-        },
-      };
-      const result = await blogCollection.updateOne(filter, updateDoc, options);
-      res.send(result);
-    });
-
-
     // POST Blog
     app.post("/addBlog", async (req, res) => {
       // const defultEmail = "sohag@gmail.com";
@@ -265,6 +241,27 @@ async function run() {
       } else {
         res.status(404).send({ message: "Blog Not Found" });
       }
+    });
+
+    // update blog
+    app.put("/blog/:id", async (req, res) => {
+      const id = req.params.id;
+      const data = req.body;
+      console.log("from update api", data);
+      const filter = { _id: new ObjectId(id) };
+      const options = { upsert: true };
+      const updateDoc = {
+        $set: {
+          title: data.title,
+          author: data.author,
+          date: data.date,
+          category: data.category,
+          url: data.url,
+          des: data.des,
+        },
+      };
+      const result = await blogCollection.updateOne(filter, updateDoc, options);
+      res.send(result);
     });
 
     // delete Blog
