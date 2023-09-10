@@ -292,7 +292,7 @@ app.post('/addBlog',  async (req, res) => {
 
 
 
-// Contact   api route  ..............................
+// Contact   api route  ==========================
 
   app.get('/contact',  async (req, res) => {
     const contactList = await contactCollection.find().toArray();
